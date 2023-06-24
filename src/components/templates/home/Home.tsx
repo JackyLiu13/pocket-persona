@@ -1,63 +1,22 @@
-import { CheckCircleIcon, SettingsIcon } from '@chakra-ui/icons';
-import { Heading, VStack, List, ListIcon, ListItem } from '@chakra-ui/react';
+import { useCompletion } from 'ai/react';
 
 const Home = () => {
+  const { completion, input, handleInputChange, handleSubmit } = useCompletion({
+    api: 'api/completion/route',
+  });
+
   return (
-    <VStack w={'full'}>
-      <Heading size="md" marginBottom={6}>
-        Ethereum Boilerplate
-      </Heading>
-      <List spacing={3}>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          Moralis authentication
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          Display Transactions
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          Display ERC20 transfers
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          Display ERC20 balances
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          Display NFT balances
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          Display NFT transfers
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          Multichain Support
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          Using Moralis from client-side
-        </ListItem>
-        <ListItem>
-          <ListIcon as={SettingsIcon} color="green.500" />
-          Adding explorer links to balances, transactions ...
-        </ListItem>
-        <ListItem>
-          <ListIcon as={SettingsIcon} color="green.500" />
-          Better responsive design
-        </ListItem>
-        <ListItem>
-          <ListIcon as={SettingsIcon} color="green.500" />
-          Rainbowkit integration
-        </ListItem>
-        <ListItem>
-          <ListIcon as={SettingsIcon} color="green.500" />
-          ... and more
-        </ListItem>
-      </List>
-    </VStack>
+    <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
+      <form onSubmit={handleSubmit}>
+        <input
+          className="fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2"
+          value={input}
+          placeholder="Describe your business..."
+          onChange={handleInputChange}
+        />
+      </form>
+      <div className="whitespace-pre-wrap my-6">{completion}</div>
+    </div>
   );
 };
 
